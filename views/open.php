@@ -1,6 +1,9 @@
 <?
 	$content = get_content('oi', true);
-	$i = isset($_GET['i']) ? $_GET['i'] : 0;
+	$i = isset($_GET['i']) ? intval($_GET['i']) : 0;
+	if (!isset($content[$i])) {
+		$i = 0;
+	}
 ?>
 
 <div class="col-12">

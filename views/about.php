@@ -8,6 +8,22 @@
 		<div class="col">
 			<h2>О компании</h2>
 			<?=$content[0]['description']?>
+			<p>
+				<strong>Режим работы:</strong>
+				с <time datetime="07:30">07:30</time> до <time datetime="17:00">17:00</time>,
+				обед с <time datetime="11:30">11:30</time> до <time datetime="13:00">13:00</time>.
+			</p>
+			<aside class="max-contact" aria-label="Связаться с нами в MAX">
+				<div class="max-contact__content">
+					<span class="max-contact__eyebrow">Мессенджер MAX</span>
+					<h3>Напишите нам в MAX</h3>
+					<p>Отсканируйте QR-код или перейдите в чат по кнопке.</p>
+					<a class="max-contact__link" href="<?=MAX_CHAT_URL?>" target="_blank" rel="noopener noreferrer">Открыть MAX <i class="fa fa-external-link" aria-hidden="true"></i></a>
+				</div>
+				<a class="max-contact__qr" href="<?=MAX_CHAT_URL?>" target="_blank" rel="noopener noreferrer" aria-label="Открыть чат MAX">
+					<img src="/image/qr_max.png" alt="QR-код для перехода в мессенджер MAX">
+				</a>
+			</aside>
 		</div>
 	</div>
 	<div class="row">

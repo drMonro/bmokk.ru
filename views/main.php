@@ -36,7 +36,7 @@
                                             -->
                                             Уважаемые, абоненты!<br>
                                             Вы можете присоедениться в нашу группу, для своевременного получения информации:<br>
-                                            <a href="https://max.ru/u/f9LHodD0cOJANDOQeyaPqIiNSjPWsp3ZNlgyX0llCOpHrothS5UacksdpZ4" target="_blank" title="Мы в мессенджере МАХ">
+                                            <a href="<?=MAX_CHAT_URL?>" target="_blank" title="Мы в мессенджере МАХ">
                                                 <img src="image/max.png" class="img-fluid rounded-lg img-max">
                                             </a>
 					</div>
@@ -61,7 +61,7 @@
 				if (($dtt > 14 && $dtt < 26) ){
 			?>
 					<div style="padding: 20px 10px 0px 10px;">Осталось до окончания передачи показаний в текущем месяце</div>
-					<div style="padding-bottom: 20px;"><a href="/?login">Передать показания</a></div>
+					<div style="padding-bottom: 20px;">Период приема показаний</div>
 					<div id="countdown-2"></div>
 					<script>
 						var date = getRelativeDate(<?=25-$dtt?>);
@@ -70,7 +70,7 @@
 				} else {
 			?>
 					<div style="padding: 20px 10px 0px 10px;">Осталось до начала приема показаний,</div>
-					<div style="padding-bottom: 20px;">а сейчас можно <a href="/?login">узнать начисления</a></div>
+					<div style="padding-bottom: 20px;">прием показаний начнется 15 числа</div>
 					<div id="countdown-2"></div>
 					<script>
 						var date = getRelativeDate(<?=($dtt > 25) ? 31-$dtt+15 : 15-$dtt?>);
@@ -120,7 +120,7 @@
             </div>
         </div>
         <div class="col-sm-12 text-center my-2">
-            <a href="https://max.ru/u/f9LHodD0cOJANDOQeyaPqIiNSjPWsp3ZNlgyX0llCOpHrothS5UacksdpZ4" target="_blank" title="Мы в мессенджере МАХ">
+            <a href="<?=MAX_CHAT_URL?>" target="_blank" title="Мы в мессенджере МАХ">
                 <img src="image/max.png" class="img-fluid rounded-lg img-max">
             </a>
         </div>

@@ -172,28 +172,10 @@ if (isset($_GET["exit"])) {
 
 					if (isset($_GET["about"])) {
 						$page = 'views/about';
-					} elseif (isset($_GET["login"])) {
-						$page = 'views/login';
-					} elseif (isset($_GET["register"])) {
-						$page = 'views/register';
-					} elseif (isset($_GET["agreement"])) {
-						$page = 'views/agreement';
 					} elseif (isset($_GET["news"])) {
 						$page = 'views/news';
-					} elseif (isset($_GET["recover"])) {
-						$page = 'views/recover';
-					} elseif (isset($_GET["user"])) {
-						$page = 'views/user';
-					} elseif (isset($_GET["add"])) {
-						$page = 'views/add';
-					} elseif (isset($_GET["admin"])) {
-						$page = 'views/admin';
-					} elseif (isset($_GET["ls"])) {
-						$page = 'views/ls';
 					} elseif (isset($_GET["oi"])) {
 						$page = 'views/open';
-					} elseif (isset($_GET["questions"])) {
-						$page = 'views/questions';
 					}
 
 					include_once $_SERVER['DOCUMENT_ROOT'].'/'.$page.'.php';

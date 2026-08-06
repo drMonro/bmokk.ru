@@ -44,6 +44,9 @@ jobs:
           local-dir: ./
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
           exclude: |
+            .ftp-deploy-sync-state.json
+            .gitignore
+            config.local.php.example
             **/.git*/**
             **/.github/**
             **/config.local.php

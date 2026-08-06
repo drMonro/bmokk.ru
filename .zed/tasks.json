@@ -2,5 +2,9 @@
   {
     "label": "PHP server",
     "command": "php -d short_open_tag=On -S 127.0.0.1:8080"
+  },
+  {
+    "label": "Merge dev into main and push",
+    "command": "pwsh -NoProfile -Command \"$ErrorActionPreference = 'Stop'; git switch main; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; git pull origin main; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; git merge --no-ff dev; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; git push origin main\""
   }
 ]

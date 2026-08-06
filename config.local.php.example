@@ -1,0 +1,9 @@
+<?
+
+// Скопируйте этот файл в config.local.php и укажите параметры только на своём сервере.
+return [
+	'DB_NAME' => '',
+	'DB_SERVER' => 'localhost',
+	'DB_USER_NAME' => '',
+	'DB_USER_PASS' => '',
+];

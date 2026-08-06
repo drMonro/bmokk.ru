@@ -1,4 +1,21 @@
-<?
+<?php
+function load_public_data($file){
+	$path = __DIR__.'/data/'.$file.'.json';
+	$data = json_decode(file_get_contents($path), true);
+
+	if (json_last_error() !== JSON_ERROR_NONE || !is_array($data)) {
+		error_log('Не удалось загрузить публичные данные из '.$path.': '.json_last_error_msg());
+		return [];
+	}
+
+	array_walk_recursive($data, function (&$value) {
+		if (is_string($value)) {
+			$value = str_replace('{{max_chat_url}}', MAX_CHAT_URL, $value);
+		}
+	});
+
+	return $data;
+}
 /* Генерация случайной строки (для восстановления пароля)*/
 function generate_string($input = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', $strength = 8) {
     $input_length = strlen($input);
@@ -28,53 +45,22 @@ function user_rights(){
 	$name = true / false - получаем / Не получаем имя области
  */
 function get_content($page, $name = false){
-		global $db;
-		$nm = $name ? ', name' : '';
-		$query = "SELECT description {$nm} FROM contents WHERE page='{$page}'";
-		if (!($statement = $db->prepare($query))) {
-			exit('Error query');
-		}
-		$statement->execute();
-		if ($name) {
-			$statement->bind_result($description, $names);
-		} else {
-			$statement->bind_result($description);
-		}
-		$content = [];
-		$i = 0;
-		while ($statement->fetch()) {
-			$content[$i]['description'] = html_entity_decode($description, ENT_QUOTES, 'UTF-8');
-			if ($name) {
-				$content[$i]['name'] = $names;
-			}
-			$i++;
-		}
-		$statement->close();
-	return $content;
+	static $public_content = null;
+	if ($public_content === null) {
+		$public_content = load_public_data('content');
+	}
+
+	return $public_content[$page] ?? [];
 }
 
 // Получить новости
 function get_news($limit = false){
-	global $db;
-	$s = $limit ? ' LIMIT '.$limit : '';
+	static $public_news = null;
+	if ($public_news === null) {
+		$public_news = load_public_data('news');
+	}
 
-	$query = "SELECT id, title, description, date_new FROM news WHERE visibility = 1 ORDER BY id DESC {$s}";
-	if (!($statement = $db->prepare($query))) {
-		exit('Ошибка запроса (news)');
-	}
-	$statement->execute();
-	$statement->bind_result($id, $title, $description, $date_new);
-	$main_news = [];
-	$i = 0;
-	while ($statement->fetch()) {
-		$main_news[$i]['id'] = $id;
-		$main_news[$i]['title'] = $title;
-		$main_news[$i]['description'] = $description;
-		$main_news[$i]['date_new'] = $date_new;
-		$i++;
-	}
-	$statement->close();
-	return $main_news;
+	return $limit ? array_slice($public_news, 0, (int) $limit) : $public_news;
 }
 
 //Получить из 02/22  = Февраль 2022 г.
@@ -134,16 +120,7 @@ function accordion ($id, $btn, $body){
 
 // Логированиесобытий
 function record_log ($log_type, $log_description){
-	global $db;
-	$id = NULL;
-	$log_user_ip = $_SERVER['REMOTE_ADDR'];
+	$log_user_ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 	$log_type = ($log_type) ? 'ОК' : 'Ошибка';
-		/* Добавляем запись */
-		$query = "INSERT INTO record_logs (id, log_type, log_user_ip, log_description) VALUES (?,?,?,?)";
-		if (!($statement = $db->prepare($query))) {
-			exit('Ошибка запроса (logs)');
-		}
-		$statement->bind_param("isss", $id, $log_type, $log_user_ip, $log_description);
-		$statement->execute();
-		$statement->close();
+	error_log("[{$log_type}] [{$log_user_ip}] {$log_description}");
 }

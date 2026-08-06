@@ -1,0 +1,52 @@
+name: Deploy to FTP
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+  workflow_dispatch:
+
+concurrency:
+  group: ftp-production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy production site
+    # Автоматически разворачиваем только успешно влитый PR из dev в main.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'dev')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Check out the merged revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
+
+      - name: Validate PHP files
+        run: |
+          find . -path './.git' -prune -o -name '*.php' -type f -print0 | xargs -0 -n1 php -l
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: ./
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          exclude: |
+            **/.git*/**
+            **/.github/**
+            **/config.local.php
+            **/.ftp-deploy-sync-state.json
+            **/.DS_Store
+            **/node_modules/**

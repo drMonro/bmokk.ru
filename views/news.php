@@ -26,7 +26,7 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 					<?=$n['description'];?>
 				</div>
 			</div>
-			<span class="news-date color_grey"><?=date("d.m.Y",strtotime($n['date_new']))?></span>
+			<?if (!empty($n['date_new'])) {?><span class="news-date color_grey"><?=date("d.m.Y",strtotime($n['date_new']))?></span><?}?>
 		</div>
 	<?
 		}

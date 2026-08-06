@@ -1,46 +1,18 @@
-<?
+<?php
 if (!session_id()) {
-    //session_save_path('/home/cr16038/tmp');
 	session_start();
 }
 
-$captcha_string = '';
-$captcha_one = rand(1000, 17500);
-$captcha_two = rand(1000, 12000);
-$captcha_result = $captcha_one + $captcha_two;
-$captcha_string .= implode(' ',str_split($captcha_result));
-$_SESSION['captcha'] = $captcha_result;
+/* SVG не требует расширения GD и работает в стандартной установке PHP. */
+$captchaResult = random_int(1000, 17500) + random_int(1000, 12000);
+$_SESSION['captcha'] = (string) $captchaResult;
+$captchaText = implode(' ', str_split((string) $captchaResult));
 
-$text = $captcha_string;
-
-header('Content-Type: image/png');
-
-// Создание изображения
-$im = imagecreatetruecolor(200, 50);
-
-// Создание цветов
-$white = imagecolorallocate($im, 255, 255, 255);
-$grey = imagecolorallocate($im, 128, 128, 128);
-$black = imagecolorallocate($im, 0, 0, 0);
-$dark_red = imagecolorallocate($im, 139, 0, 0);
-
-imagefilledrectangle($im, 0, 0, 199, 49, $white);
-
-// Замена пути к шрифту на пользовательский
-$font = $_SERVER['DOCUMENT_ROOT'] . '/fonts/columbia.ttf';
-
-imagettftext($im, 32, 2, 9, 46, $grey, $font, $text);
-imagettftext($im, 32, 2, 8, 45, $black, $font, $text);
-
-for ($i = 0; $i < 35; $i++) {
-	if ($i > 25) {
-		$color = $dark_red;
-	} else {
-		$color = $i < 15 ? $black : $grey;
-	}
-	imagesetpixel($im, rand(0, 196),rand(0, 46), $color);
-	imageline($im, rand(0, 196), rand(0, 46), rand(0, 196), rand(0, 46), $color);
-}
-
-imagepng($im);
-imagedestroy($im);
+header('Content-Type: image/svg+xml; charset=UTF-8');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+?>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="50" viewBox="0 0 200 50" role="img" aria-label="Код подтверждения">
+	<rect width="200" height="50" fill="#fff"/>
+	<path d="M5 10 L195 42 M15 46 L180 8 M45 3 L155 47" stroke="#8b0000" stroke-width="1" opacity=".45"/>
+	<text x="8" y="37" fill="#111" font-family="Arial, sans-serif" font-size="30" letter-spacing="2"><?=htmlspecialchars($captchaText, ENT_QUOTES, 'UTF-8')?></text>
+</svg>

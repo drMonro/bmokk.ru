@@ -199,7 +199,7 @@ if (isset($_GET["exit"])) {
 				js("$.notification.show('error','Bot!')");
 			} else {
 				$m = 'Пользователь '.trim($_POST["memail"]).' отправил сообщение/вопрос с сайта: '.$m;
-				send_mail("uchetokk@mail.ru", $m);
+				send_mail("ooo_okk@mail.ru", $m);
 				unset($_SESSION['captcha']);
 			}
 		}

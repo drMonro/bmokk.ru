@@ -8,26 +8,40 @@
 		<div class="col">
 			<h2>О компании</h2>
 			<?=$content[0]['description']?>
-			<p>
-				<strong>Режим работы:</strong>
-				с <time datetime="07:30">07:30</time> до <time datetime="17:00">17:00</time>,
-				обед с <time datetime="11:30">11:30</time> до <time datetime="13:00">13:00</time>.
+			<p class="work-hours">
+				<strong>Часы работы:</strong>
+				<time datetime="07:30">07:30</time>-<time datetime="17:00">17:00</time>,
+				обед <time datetime="11:30">11:30</time>-<time datetime="13:00">13:00</time>.
 			</p>
-			<aside class="max-contact" aria-label="Связаться с нами в MAX">
-				<div class="max-contact__content">
-					<span class="max-contact__eyebrow">Мессенджер MAX</span>
-					<h3>Напишите нам в MAX</h3>
-					<p>Отсканируйте QR-код или перейдите в чат по кнопке.</p>
-					<a class="max-contact__link" href="<?=MAX_CHAT_URL?>" target="_blank" rel="noopener noreferrer">Открыть MAX <i class="fa fa-external-link" aria-hidden="true"></i></a>
+			<div class="contact-cards">
+				<aside class="max-contact" aria-label="Связаться с нами в MAX">
+					<div class="max-contact__content">
+						<span class="max-contact__eyebrow">Мессенджер MAX</span>
+						<h3>Напишите нам в MAX</h3>
+						<p>Отсканируйте QR-код или перейдите в чат по кнопке.</p>
+						<a class="max-contact__link" href="<?=MAX_CHAT_URL?>" target="_blank" rel="noopener noreferrer">Открыть MAX <i class="fa fa-external-link" aria-hidden="true"></i></a>
+					</div>
+					<a class="max-contact__qr" href="<?=MAX_CHAT_URL?>" target="_blank" rel="noopener noreferrer" aria-label="Открыть чат MAX">
+						<img src="/image/qr_max.png" alt="QR-код для перехода в мессенджер MAX">
+					</a>
+				</aside>
+				<aside class="max-contact app-contact" aria-label="Скачать приложение Онлайн ЖКХ">
+					<div class="max-contact__content">
+						<span class="max-contact__eyebrow">Мобильное приложение</span>
+						<h3>Онлайн ЖКХ</h3>
+						<p>Передавайте показания, оплачивайте ЖКУ и отправляйте обращения через приложение.</p>
+						<a class="max-contact__link" href="<?=ONLINE_ZHKH_GOOGLE_PLAY_URL?>" target="_blank" rel="noopener noreferrer">Скачать в Google Play <i class="fa fa-external-link" aria-hidden="true"></i></a>
+					</div>
+					<a class="max-contact__qr" href="<?=ONLINE_ZHKH_GOOGLE_PLAY_URL?>" target="_blank" rel="noopener noreferrer" aria-label="Открыть Онлайн ЖКХ в Google Play">
+						<img src="/image/qr_online_zhkh.png" alt="QR-код для скачивания приложения Онлайн ЖКХ">
+					</a>
+				</aside>
 				</div>
-				<a class="max-contact__qr" href="<?=MAX_CHAT_URL?>" target="_blank" rel="noopener noreferrer" aria-label="Открыть чат MAX">
-					<img src="/image/qr_max.png" alt="QR-код для перехода в мессенджер MAX">
-				</a>
-			</aside>
+			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-12 my-2">
+		<div class="col-12 my-2 about-details">
 			<?=$content[1]['description']?>
 		</div>
 		<div class="col-12 my-2">

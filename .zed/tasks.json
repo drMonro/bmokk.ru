@@ -1,0 +1,11 @@
+[
+  {
+    "label": "PHP server",
+    "command": "php -d short_open_tag=On -S 127.0.0.1:8080"
+  },
+  {
+    "label": "Create and merge dev PR",
+    "command": "gh pr create --base main --head dev --fill; gh pr merge dev --merge",
+    "use_new_terminal": true
+  }
+]

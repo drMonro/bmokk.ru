@@ -200,7 +200,6 @@ if (isset($_GET["exit"])) {
 			} else {
 				$m = 'Пользователь '.trim($_POST["memail"]).' отправил сообщение/вопрос с сайта: '.$m;
 				send_mail("ooo_okk@mail.ru", $m);
-				//send_mail("antonb770@mail.ru", $m);
 				unset($_SESSION['captcha']);
 			}
 		}

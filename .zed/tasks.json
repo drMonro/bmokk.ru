@@ -5,7 +5,7 @@
   },
   {
     "label": "Create and merge dev PR",
-    "command": "gh pr create --base master --head dev --fill; gh pr merge dev --merge",
+    "command": "gh pr create --base main --head dev --fill; gh pr merge dev --merge",
     "use_new_terminal": true
   }
 ]

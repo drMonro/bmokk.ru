@@ -1,12 +1,9 @@
 name: Deploy to FTP
-run-name: "Deploy: ${{ github.event.pull_request.title || github.event.head_commit.message || github.ref_name }}"
 
 on:
-  pull_request:
+  push:
     branches:
       - main
-    types:
-      - closed
   workflow_dispatch:
 
 concurrency:
@@ -16,10 +13,10 @@ concurrency:
 jobs:
   deploy:
     name: Deploy production site
-    # Автоматически разворачиваем только успешно влитый PR из dev в main.
+    # Автоматически разворачиваем изменения, попавшие в main.
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      (github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'dev')
+      github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
